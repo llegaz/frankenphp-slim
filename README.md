@@ -1,1 +1,2 @@
-# slim4-docker
+# frankenphp-slim
+
