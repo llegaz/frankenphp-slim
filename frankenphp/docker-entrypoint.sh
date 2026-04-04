@@ -7,7 +7,7 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	# This block will remove itself after the installation
 	if [ "$(cat composer.json)" = '{}' ]; then
 		rm -Rf tmp/
-		composer create-project "slim/slim-skeleton --prefer-dist --no-progress --no-interaction --no-install
+		composer create-project "slim/slim-skeleton" --prefer-dist --no-progress --no-interaction --no-install
 
 		cd tmp
 		cp -Rp . ..
