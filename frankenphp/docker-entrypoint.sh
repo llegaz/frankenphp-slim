@@ -7,7 +7,7 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	# This block will remove itself after the installation
 	if [ "$(cat composer.json)" = '{}' ]; then
 		rm -Rf tmp/
-		composer create-project "slim/slim-skeleton" --prefer-dist --no-progress --no-interaction --no-install
+		composer create-project slim/slim-skeleton tmp --prefer-dist --no-progress --no-interaction --no-install
 
 		cd tmp
 		cp -Rp . ..
@@ -15,7 +15,6 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		rm -Rf tmp/
 
 		composer require "php:>=$PHP_VERSION"
-		composer config --json extra.symfony.docker 'true'
 
 		# Remove the project install block from this script and the compose.yaml
 		sed -i '/^\t###> dunglas\/symfony-docker ###/,/^\t###< dunglas\/symfony-docker ###/d' frankenphp/docker-entrypoint.sh
