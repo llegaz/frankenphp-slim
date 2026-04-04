@@ -10,8 +10,6 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		composer create-project "slim/slim-skeleton" --prefer-dist --no-progress --no-interaction --no-install
 
 		cd tmp
-                cd ../
-                cd tmp
 		cp -Rp . ..
 		cd -
 		rm -Rf tmp/
