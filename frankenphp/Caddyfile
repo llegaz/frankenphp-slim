@@ -2,7 +2,7 @@
 localhost
 
 # Optionally, the directory to serve files from, otherwise defaults to the current directory
-root public/app/src
+root /app/src/public
 php_server
 
 
