@@ -6,13 +6,9 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	# Install the project the first time PHP is started
 	# This block will remove itself after the installation
 	if [ "$(cat composer.json)" = '{}' ]; then
-		rm -Rf tmp/
-		composer create-project slim/slim-skeleton tmp --prefer-dist --no-progress --no-interaction --no-install
+		rm -Rf src/
+		composer create-project slim/slim-skeleton src --prefer-dist --no-progress --no-interaction --no-install
 
-		cd tmp
-		cp -Rp . ..
-		cd -
-		rm -Rf tmp/
 
 		composer require "php:>=$PHP_VERSION"
 
@@ -32,7 +28,7 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	fi
 
 	echo 'PHP app ready!'
-        composer start
+	composer start
 fi
 
 exec docker-php-entrypoint "$@"
