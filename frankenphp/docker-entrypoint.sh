@@ -9,9 +9,6 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		rm -Rf src/
 		composer create-project slim/slim-skeleton src --prefer-dist --no-progress --no-interaction --no-install
 
-
-		composer require "php:>=$PHP_VERSION"
-
 		# Remove the project install block from this script and the compose.yaml
 		sed -i '/^\t###> dunglas\/symfony-docker ###/,/^\t###< dunglas\/symfony-docker ###/d' frankenphp/docker-entrypoint.sh
 		sed -i '/###> dunglas\/symfony-docker ###/,/###< dunglas\/symfony-docker ###/d' compose.yaml
