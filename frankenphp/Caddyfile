@@ -47,10 +47,10 @@
 	php @frontController {
 		{$FRANKENPHP_SITE_CONFIG}
 
-		worker {
-			file /app/src/public/index.php
-			{$FRANKENPHP_WORKER_CONFIG}
-		}
+#		worker {
+#			file /app/src/public/index.php
+#			{$FRANKENPHP_WORKER_CONFIG}
+#		}
 	}
 
 	file_server {
