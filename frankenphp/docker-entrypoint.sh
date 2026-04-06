@@ -24,8 +24,7 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		composer install --prefer-dist --no-progress --no-interaction
 	fi
 
-	echo 'PHP app ready!'
-	composer start
+	echo 'PHP Slim app is ready!'
 fi
 
 exec docker-php-entrypoint "$@"
