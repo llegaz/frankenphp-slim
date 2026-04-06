@@ -15,8 +15,6 @@ SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 
 WORKDIR /app
 
-VOLUME /app/src/
-
 # persistent deps
 # hadolint ignore=DL3008
 RUN <<-EOF
