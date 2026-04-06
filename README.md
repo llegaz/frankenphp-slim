@@ -7,8 +7,9 @@
 
 ```bash
 sudo cp -r ./* /opt/frankenphp-slim/
-sudo docker exec -it frankenphp-slim-php-1 bash
-sudo docker compose logs php
+docker exec -it frankenphp-slim-php-1 bash
+docker compose logs php
+docker exec -it <container_name> sh -c "composer require llegaz/redis-cache --working-dir=/app/src"
 ```
 
 ## Getting Started
@@ -26,5 +27,5 @@ frankenphp-slim is available under the MIT License.
 
 ## Credits
 
-Created by [Laurent Legaz](http://laurent.legaz.eu) from [Kévin Dunglas](https://dunglas.dev) of [Les-Tilleuls.coop](https://les-tilleuls.coop) project Symfony Docker.
+Created by [Laurent Legaz](http://laurent.legaz.eu) from [Kévin Dunglas](https://dunglas.dev)'s project Symfony Docker.
 
