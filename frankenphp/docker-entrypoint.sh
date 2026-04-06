@@ -1,30 +1,24 @@
 #!/bin/sh
 set -e
 
-if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-	###> dunglas/symfony-docker ###
-	# Install the project the first time PHP is started
-	# This block will remove itself after the installation
-	if [ "$(cat composer.json)" = '{}' ]; then
-		rm -Rf src/
-		composer create-project slim/slim-skeleton src --prefer-dist --no-progress --no-interaction --no-install
+if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ]; then
+    if [ -z "$(ls -A 'src/' 2>/dev/null)" ]; then
+        echo 'Installing Slim skeleton...'
+        composer create-project slim/slim-skeleton /tmp/slim --prefer-dist --no-progress --no-interaction
+        cp -r /tmp/slim/. /app/src/
+        rm -rf /tmp/slim
+        echo 'Slim skeleton installed!'
+    elif [ -z "$(ls -A 'src/vendor/' 2>/dev/null)" ]; then
+        echo 'Installing dependencies...'
+        composer install \
+            --working-dir=/app/src \
+            --prefer-dist \
+            --no-progress \
+            --no-interaction
+        echo 'Dependencies installed!'
+    fi
 
-		# Remove the project install block from this script and the compose.yaml
-		sed -i '/^\t###> dunglas\/symfony-docker ###/,/^\t###< dunglas\/symfony-docker ###/d' frankenphp/docker-entrypoint.sh
-		sed -i '/###> dunglas\/symfony-docker ###/,/###< dunglas\/symfony-docker ###/d' compose.yaml
-
-		if grep -q ^DATABASE_URL= .env; then
-			echo 'To finish the installation please press Ctrl+C to stop Docker Compose and run: docker compose up --build --wait'
-			sleep infinity
-		fi
-	fi
-	###< dunglas/symfony-docker ###
-
-	if [ -z "$(ls -A 'vendor/' 2>/dev/null)" ]; then
-		composer install --prefer-dist --no-progress --no-interaction
-	fi
-
-	echo 'PHP Slim app is ready!'
+    echo 'Slim app ready!'
 fi
 
 exec docker-php-entrypoint "$@"
