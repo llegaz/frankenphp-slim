@@ -24,8 +24,12 @@
 	encode zstd br gzip
 
 	mercure {
-		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
-		subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+		# TODO: remove those 2 lines for production !
+		allow_anonymous_publish
+		allow_anonymous_subscribe
+		# TODO: uncomment those 2 lines for production !
+		#publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
+		#subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
 		anonymous
 		subscriptions
 		{$MERCURE_EXTRA_DIRECTIVES}
