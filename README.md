@@ -21,6 +21,19 @@ docker exec -it <container_name> sh -c "composer require llegaz/redis-cache --wo
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
 
+
+
+## Récupérer le certificat généré par Caddy
+docker cp <container_name>:/data/caddy/pki/authorities/local/root.crt ./caddy-root.crt
+
+# Linux
+sudo cp caddy-root.crt /usr/local/share/ca-certificates/caddy-root.crt
+sudo update-ca-certificates
+
+# Mac
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain caddy-root.crt
+
+
 ## License
 
 frankenphp-slim is available under the MIT License.
