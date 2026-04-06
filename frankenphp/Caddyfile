@@ -1,11 +1,14 @@
-# The hostname to respond to
-localhost
+{
+	# FrankenPHP global config
+	frankenphp
+}
 
-# Optionally, the directory to serve files from, otherwise defaults to the current directory
-root /app/src/public
-php_server
+{$SERVER_NAME:localhost} {
+	root * /app/src/public
+	encode zstd br gzip
 
-
+	php_server
+}
 
 
 

@@ -6,7 +6,9 @@
 ## dev memo [TODO: remove this]
 
 ```bash
-$ sudo cp -r ./* /opt/frankenphp-slim/
+sudo cp -r ./* /opt/frankenphp-slim/
+sudo docker exec -it frankenphp-slim-php-1 bash
+sudo docker compose logs php
 ```
 
 ## Getting Started
