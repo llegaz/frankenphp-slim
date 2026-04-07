@@ -58,6 +58,8 @@ jobs:
       contents: read
       packages: read
       statuses: write
+      issues: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
