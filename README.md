@@ -4,27 +4,19 @@
 
 This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s project Symfony Docker. it aims to provide a ready to use install for a slim project using frankenPHP server and vulcain / mercure technologies for SSE as well.
 
-## dev memo [TODO: remove this]
-
-```bash
-sudo cp -r ./* /opt/frankenphp-slim/
-docker exec -it frankenphp-slim-php-1 bash
-docker compose logs php
-docker exec -it <container_name> sh -c "composer require llegaz/redis-cache --working-dir=/app/src"
-
-sudo docker cp frankenphp-slim-php-1:/data/caddy/pki/authorities/local/root.crt /usr/local/share/ca-certificates/caddy-root.crt
-```
-
 ## Getting Started
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
 2. Run `docker compose build --pull --no-cache` to build fresh images
+**optional**. If you have an existing Slim project you want to run just clone it (copy it) into this same project and rename its folder `src/`, like this:
+
+    frankenphp-slim/
+    ├─ frankenphp/
+    ├─ **src**/
+
 3. Run `docker compose up --wait` to set up and start a fresh Symfony project
 4. Open `https://localhost` in your favorite web browser
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
-
-
-
 
 ## Set the freshly generated Caddy certificate into your local browser
 ```bash
@@ -43,6 +35,23 @@ sudo update-ca-certificates
 ```bash
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain caddy-root.crt
 ```
+
+## Features
+
+- Production, development and CI ready
+- Just 1 service by default
+- Super-readable configuration
+- Unfortunately[the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/) is not up in this version but you can set it or check on my next project [frankenphp-slim-enhanced](https://github.com/llegaz/frankenphp-slim-enhanced) 
+- [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
+- Automatic HTTPS (in dev and prod)
+- HTTP/2 and HTTP/3 support
+- Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
+- [Vulcain](https://vulcain.rocks) support
+- [Hot Reloading](https://frankenphp.dev/docs/hot-reload/)
+- Rootless, slim production image
+- This project should have a native [XDebug](docs/xdebug.md) integration (but I did not test it yet)
+
+**Enjoy!**
 
 ## License
 
