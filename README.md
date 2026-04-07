@@ -41,7 +41,7 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 - Production, development and CI ready
 - Just 1 service by default
 - Super-readable configuration
-- Unfortunately[the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/) is not up in this version but you can set it or check on my next project [frankenphp-slim-enhanced](https://github.com/llegaz/frankenphp-slim-enhanced) 
+- Unfortunately [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/) is not up in this version but you can set it or check on my next project [frankenphp-slim-enhanced](https://github.com/llegaz/frankenphp-slim-enhanced) 
 - [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
 - Automatic HTTPS (in dev and prod)
 - HTTP/2 and HTTP/3 support
