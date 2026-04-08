@@ -7,13 +7,14 @@ This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s pr
 ## Getting Started
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-**optional**. If you have an existing Slim project you want to run just clone it (copy it) into this same project and rename its folder `src/`, like this:
-
+2. Run `docker compose build --pull --no-cache` to build fresh images  
+  
+**optional**. If you have an existing Slim project you want to run just clone it (copy it) into this same project and rename its folder `src/`, like this:  
+```text
     frankenphp-slim/
     ├─ frankenphp/
-    ├─ **src**/
-
+    ├─ src/
+```
 3. Run `docker compose up --wait` to set up and start a fresh Symfony project
 4. Open `https://localhost` in your favorite web browser
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
@@ -44,7 +45,7 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 - Unfortunately [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/) is not up in this version but you can set it or check on my next project [frankenphp-slim-enhanced](https://github.com/llegaz/frankenphp-slim-enhanced)
 - [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
 - Automatic HTTPS (in dev and prod)
-- HTTP/2 and HTTP/3 support
+- HTTP/3 ready and HTTP/2 support
 - Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
 - [Vulcain](https://vulcain.rocks) support
 - [Hot Reloading](https://frankenphp.dev/docs/hot-reload/)
