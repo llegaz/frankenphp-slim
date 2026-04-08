@@ -15,8 +15,6 @@ SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 
 WORKDIR /app
 
-VOLUME /app/var/
-
 # persistent deps
 # hadolint ignore=DL3008
 RUN <<-EOF
@@ -102,25 +100,22 @@ COPY --link --exclude=frankenphp/ . ./
 RUN <<-EOF
 	mkdir -p var/cache var/log var/share
 	composer dump-autoload --classmap-authoritative --no-dev
-	composer dump-env prod
-	composer run-script --no-dev post-install-cmd
-	if [ -f importmap.php ]; then
-		php bin/console asset-map:compile
-	fi
-	chmod +x bin/console; sync
 EOF
 
 # Collect shared libraries needed by FrankenPHP and PHP extensions
 # hadolint ignore=DL3008,SC3054,DL4006
 RUN <<-'EOF'
 	apt-get update
-	apt-get install -y --no-install-recommends libtree
+	apt-get install -y --no-install-recommends libtree pstree procps net-
 	mkdir -p /tmp/libs
 	BINARIES=(frankenphp php file)
+	touch my_log.txt
 	for target in $(printf '%s\n' "${BINARIES[@]}" | xargs -I{} which {}) \
 		$(find "$(php -r 'echo ini_get("extension_dir");')" -maxdepth 2 -name "*.so"); do
+		echo "+ $target" >> my_log.txt
 		libtree -pv "$target" 2>/dev/null | grep -oP '(?:── )\K/\S+(?= \[)' | while IFS= read -r lib; do
 			[ -f "$lib" ] && cp -n "$lib" /tmp/libs/
+			echo "- $lib" >> my_log.txt
 		done
 	done
 	sed -i 's/opcache.preload_user = root/opcache.preload_user = www-data/' "$PHP_INI_DIR/app.conf.d/20-app.prod.ini"
@@ -162,11 +157,11 @@ RUN <<-EOF
 EOF
 
 COPY --link --exclude=var --from=frankenphp_prod_builder /app /app
-COPY --chown=www-data:www-data --from=frankenphp_prod_builder /app/var /app/var
+COPY --chown=www-data:www-data --from=frankenphp_prod_builder /app/src/logs /app/src/logs
 
 COPY --link --chmod=755 frankenphp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
-VOLUME /app/var/
+VOLUME /app/src/
 
 USER www-data
 
