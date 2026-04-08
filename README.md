@@ -19,7 +19,7 @@ This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s pr
 4. Open `https://localhost` in your favorite web browser
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
-## Set the freshly generated Caddy certificate into your local browser
+## Add the authority to the trust store of the host
 ```bash
 docker cp <container_name>:/data/caddy/pki/authorities/local/root.crt ./caddy-root.crt
 ```
