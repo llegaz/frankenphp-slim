@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/llegaz/frankenphp-slim/actions/workflows/ci.yaml/badge.svg)](https://github.com/llegaz/frankenphp-slim/actions/workflows/ci.yaml)
 
-This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s project Symfony Docker. it aims to provide a ready to use install for a slim project using frankenPHP server and vulcain / mercure technologies for SSE as well.
+This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s project [Symfony Docker](https://github.com/dunglas/symfony-docker), it aims to provide a ready to use install for a slim project using frankenPHP server and vulcain / mercure technologies for SSE and hot reloading.
 
 ## Getting Started
 
@@ -60,5 +60,5 @@ frankenphp-slim is available under the MIT License.
 
 ## Credits
 
-By [Laurent Legaz](http://laurent.legaz.eu), largely inspired from [Kévin Dunglas](https://dunglas.dev)'s project Symfony Docker.
+By [Laurent Legaz](http://laurent.legaz.eu), largely inspired from [Kévin Dunglas](https://dunglas.dev)'s project [Symfony Docker](https://github.com/dunglas/symfony-docker).
 
