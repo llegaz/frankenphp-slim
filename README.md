@@ -45,7 +45,7 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 - Unfortunately [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/) is not up in this version but you can set it or check on my next project [frankenphp-slim-enhanced](https://github.com/llegaz/frankenphp-slim-enhanced)
 - [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
 - Automatic HTTPS (in dev and prod)
-- HTTP/2 and HTTP/3 support
+- HTTP/3 ready and HTTP/2 support
 - Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
 - [Vulcain](https://vulcain.rocks) support
 - [Hot Reloading](https://frankenphp.dev/docs/hot-reload/)
