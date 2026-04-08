@@ -23,17 +23,20 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PAT }}
 
-      - name: Build prod image
-        run: |
-          docker build \
-            --target frankenphp_prod \
-            -t app-php-prod:${{ github.sha }} .
-
-      - name: Docker Scout CVEs
+      - name: Scan FrankenPHP Upstream
         uses: docker/scout-action@v1
         with:
           command: cves
-          image: app-php-prod:${{ github.sha }}
+          image: dunglas/frankenphp:1-php8.5
+          only-severities: critical,high
+          exit-code: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Scan Debian Prod Base
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: debian:13-slim
           only-severities: critical,high
           exit-code: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
