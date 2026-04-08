@@ -7,13 +7,14 @@ This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s pr
 ## Getting Started
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-**optional**. If you have an existing Slim project you want to run just clone it (copy it) into this same project and rename its folder `src/`, like this:
-
-    frankenphp-slim/
-    ├─ frankenphp/
-    ├─ **src**/
-
+2. Run `docker compose build --pull --no-cache` to build fresh images  
+  
+**optional**. If you have an existing Slim project you want to run just clone it (copy it) into this same project and rename its folder `src/`, like this:  
+  
+    frankenphp-slim/  
+    ├─ frankenphp/  
+    ├─ **src**/  
+  
 3. Run `docker compose up --wait` to set up and start a fresh Symfony project
 4. Open `https://localhost` in your favorite web browser
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
