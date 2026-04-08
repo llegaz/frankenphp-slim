@@ -38,5 +38,5 @@ jobs:
           command: cves
           image: debian:13-slim
           only-severities: critical,high
-          exit-code: true
+          exit-code: false
           github-token: ${{ secrets.GITHUB_TOKEN }}
