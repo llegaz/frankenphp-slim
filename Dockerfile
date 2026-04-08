@@ -150,11 +150,7 @@ COPY --from=frankenphp_prod_builder /usr/local/etc/php/php.ini /usr/local/etc/ph
 COPY --from=frankenphp_prod_builder /usr/local/etc/php/app.conf.d /usr/local/etc/php/app.conf.d
 
 COPY --from=frankenphp_prod_builder /etc/frankenphp/Caddyfile /etc/frankenphp/Caddyfile
-
-# CA certificates for TLS, file/libmagic for Symfony MIME type detection
 COPY --from=frankenphp_prod_builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=frankenphp_prod_builder /usr/bin/file /usr/bin/file
-COPY --from=frankenphp_prod_builder /usr/lib/file/magic.mgc /usr/lib/file/magic.mgc
 
 ENV XDG_CONFIG_HOME=/config XDG_DATA_HOME=/data
 
@@ -165,7 +161,7 @@ RUN <<-EOF
 	find / -perm /6000 -type f -exec chmod a-s {} + 2>/dev/null || true
 EOF
 
-COPY --link --exclude=var --from=frankenphp_prod_builder /app /app
+COPY --link --from=frankenphp_prod_builder /app /app
 COPY --chown=www-data:www-data --from=frankenphp_prod_builder /app/src/logs /app/src/logs
 
 COPY --link --chmod=755 frankenphp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
