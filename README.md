@@ -13,7 +13,7 @@ This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s pr
   
     frankenphp-slim/  
     ├─ frankenphp/  
-    ├─ **src**/  
+    ├─ src/  
   
 3. Run `docker compose up --wait` to set up and start a fresh Symfony project
 4. Open `https://localhost` in your favorite web browser
