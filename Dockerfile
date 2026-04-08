@@ -70,6 +70,9 @@ RUN <<-EOF
 		iptables \
 		jq \
 		sudo
+#		pstree
+#		procps
+#		net-tools
 	install-php-extensions xdebug
 	rm -rf /var/lib/apt/lists/*
 	useradd -m -s /bin/bash nonroot
@@ -91,22 +94,28 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --link frankenphp/conf.d/20-app.prod.ini $PHP_INI_DIR/app.conf.d/
 
 # prevent the reinstallation of vendors at every changes in the source code
-COPY --link composer.* symfony.* ./
-RUN composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+COPY --link src/composer.* /app/src/
+RUN composer install \
+    --working-dir=/app/src \
+    --no-cache \
+    --prefer-dist \
+    --no-dev \
+    --no-autoloader \
+    --no-scripts \
+    --no-progress
 
-# copy sources
-COPY --link --exclude=frankenphp/ . ./
+COPY --link src/ /app/src/
 
-RUN <<-EOF
-	mkdir -p var/cache var/log var/share
-	composer dump-autoload --classmap-authoritative --no-dev
-EOF
+RUN composer dump-autoload \
+    --working-dir=/app/src \
+    --classmap-authoritative \
+    --no-dev
 
 # Collect shared libraries needed by FrankenPHP and PHP extensions
 # hadolint ignore=DL3008,SC3054,DL4006
 RUN <<-'EOF'
 	apt-get update
-	apt-get install -y --no-install-recommends libtree pstree procps net-
+	apt-get install -y --no-install-recommends libtree
 	mkdir -p /tmp/libs
 	BINARIES=(frankenphp php file)
 	touch my_log.txt
