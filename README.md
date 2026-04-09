@@ -50,7 +50,7 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 - [Vulcain](https://vulcain.rocks) support
 - [Hot Reloading](https://frankenphp.dev/docs/hot-reload/)
 - Rootless, slim production image
-- This project should have a native [XDebug](docs/xdebug.md) integration (but I did not test it yet)
+- This project should have a native [XDebug](docs/xdebug.md) integration (sole point that I did not test here yet)
 
 **Enjoy!**
 
@@ -103,9 +103,9 @@ Alternatively, if you don't want to expose an HTTPS server but only an HTTP one,
 run the following command:
 
 ```console
-SERVER_NAME=:80 \
-APP_SECRET=ChangeMe \
-CADDY_MERCURE_JWT_SECRET=ChangeThisMercureHubJWTSecretKey \
+export SERVER_NAME=:80\
+export APP_SECRET=ChangeMe\
+export CADDY_MERCURE_JWT_SECRET=ChangeThisMercureHubJWTSecretKey\
 docker compose -f compose.yaml -f compose.prod.yaml up --wait
 ```
 
