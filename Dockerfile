@@ -69,10 +69,11 @@ RUN <<-EOF
 		ipset \
 		iptables \
 		jq \
+#		pstree \
+#		procps \
+#		net-tools \
 		sudo
-#		pstree
-#		procps
-#		net-tools
+
 	install-php-extensions xdebug
 	rm -rf /var/lib/apt/lists/*
 	useradd -m -s /bin/bash nonroot
