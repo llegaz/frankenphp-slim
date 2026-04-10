@@ -9,6 +9,8 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    environment: "open source"
+
     env:
       DOCKER_USER: ${{ secrets.DOCKER_USER }}
       DOCKER_PAT: ${{ secrets.DOCKER_PAT }}
