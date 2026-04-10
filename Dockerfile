@@ -69,9 +69,6 @@ RUN <<-EOF
 		ipset \
 		iptables \
 		jq \
-#		pstree \
-#		procps \
-#		net-tools \
 		sudo
 
 	install-php-extensions xdebug
