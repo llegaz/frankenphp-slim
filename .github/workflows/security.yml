@@ -59,9 +59,21 @@ jobs:
       - name: Publish Results to Summary
         if: always()
         run: |
-          echo "# 🛡️ CVE Analysis Report" >> "$GITHUB_STEP_SUMMARY"
-          echo "## 🐘 FrankenPHP Upstream  " >> "$GITHUB_STEP_SUMMARY"
-          cat frankenphp-report.md >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo "⚠️ No FrankenPHP report generated." >> "$GITHUB_STEP_SUMMARY"
-          echo "---" >> "$GITHUB_STEP_SUMMARY"
-          echo "## 🐧 Debian Base  " >> "$GITHUB_STEP_SUMMARY"
-          cat debian-report.md >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo "⚠️ No Debian report generated." >> "$GITHUB_STEP_SUMMARY"
+          echo "# 🛡️ CVE Analysis Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "Scan performed on $(date +'%Y-%m-%d %H:%M')" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ -s frankenphp-report.md ]; then
+            echo "## 🐘 FrankenPHP Upstream" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            cat frankenphp-report.md >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -s debian-report.md ]; then
+            echo "## 🐧 Debian Base" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            cat debian-report.md >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ ! -s frankenphp-report.md ] && [ ! -s debian-report.md ]; then
+            echo "> ✅ Reports were integrated directly by Docker Scout above." >> "$GITHUB_STEP_SUMMARY"
+          fi
