@@ -42,7 +42,7 @@ jobs:
           output: frankenphp-report.md
 
       - name: Add CVEs frankenphp report to Actions Summary
-        run: cat frankenphp-report.md >> $GITHUB_STEP_SUMMARY
+        run: cat frankenphp-report.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Scan Debian Prod Base
         uses: docker/scout-action@v1
@@ -56,4 +56,4 @@ jobs:
           output: debian-report.md
 
       - name: Add CVEs debien report to Actions Summary
-        run: cat debian-report.md >> $GITHUB_STEP_SUMMARY
+        run: cat debian-report.md >> "$GITHUB_STEP_SUMMARY"
