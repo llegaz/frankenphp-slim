@@ -1,31 +1,35 @@
 ---
-name: Security Scan
+name: CVE Analysis
 
 on:
   push:
     branches: [main, dev]
   pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
 
 jobs:
-  scan:
+  analyze:
+    name: Upstream Images Scan
     runs-on: ubuntu-latest
     environment: "open source"
 
-    env:
-      DOCKER_USER: ${{ secrets.DOCKER_USER }}
-      DOCKER_PAT: ${{ secrets.DOCKER_PAT }}
     permissions:
       contents: read
       pull-requests: write
 
+    env:
+      DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      DOCKER_PAT: ${{ secrets.DOCKER_PAT }}
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v4
+        uses: docker/login-action@v3
         with:
           username: ${{ env.DOCKER_USER }}
           password: ${{ env.DOCKER_PAT }}
@@ -41,10 +45,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           output: frankenphp-report.md
 
-      - name: Add CVEs frankenphp report to Actions Summary
-        run: cat frankenphp-report.md >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Scan Debian Prod Base
+      - name: Scan Debian Base
         uses: docker/scout-action@v1
         with:
           command: cves
@@ -55,5 +56,20 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           output: debian-report.md
 
-      - name: Add CVEs debien report to Actions Summary
-        run: cat debian-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish Results to Summary
+        if: always()
+        run: |
+          echo "# 🛡️ CVE Analysis Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "## 🐘 FrankenPHP Upstream" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f frankenphp-report.md ]; then
+            cat frankenphp-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "⚠️ No FrankenPHP report generated." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "---" >> "$GITHUB_STEP_SUMMARY"
+          echo "## 🐧 Debian Base" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f debian-report.md ]; then
+            cat debian-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "⚠️ No Debian report generated." >> "$GITHUB_STEP_SUMMARY"
+          fi
