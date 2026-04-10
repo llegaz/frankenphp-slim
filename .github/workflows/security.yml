@@ -37,6 +37,7 @@ jobs:
           image: dunglas/frankenphp:1-php8.5
           only-severities: critical,high
           exit-code: false
+          write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Scan Debian Prod Base
@@ -46,4 +47,5 @@ jobs:
           image: debian:13-slim
           only-severities: critical,high
           exit-code: false
+          write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
