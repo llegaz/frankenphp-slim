@@ -71,15 +71,13 @@ Go into the directory containing your project (`<project-name>`),
 and start the app in production mode:
 
 ```console
-# set needed ENV variables
-export SERVER_NAME=your-domain-name.example.com \
-export APP_SECRET=ChangeMe \
-export CADDY_MERCURE_JWT_SECRET=ChangeThisMercureHubJWTSecretKey
-
 # Build fresh production image
 docker compose -f compose.yaml -f compose.prod.yaml build --pull --no-cache
 
 # Start container
+SERVER_NAME=your-domain-name.example.com \
+APP_SECRET=ChangeMe \
+CADDY_MERCURE_JWT_SECRET=ChangeThisMercureHubJWTSecretKey \
 docker compose -f compose.yaml -f compose.prod.yaml up --wait
 ```
 
@@ -103,9 +101,9 @@ Alternatively, if you don't want to expose an HTTPS server but only an HTTP one,
 run the following command:
 
 ```console
-export SERVER_NAME=:80\
-export APP_SECRET=ChangeMe\
-export CADDY_MERCURE_JWT_SECRET=ChangeThisMercureHubJWTSecretKey\
+SERVER_NAME=:80 \
+APP_SECRET=ChangeMe \
+CADDY_MERCURE_JWT_SECRET=Key \
 docker compose -f compose.yaml -f compose.prod.yaml up --wait
 ```
 
