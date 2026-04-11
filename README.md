@@ -30,6 +30,7 @@ sudo cp caddy-root.crt /usr/local/share/ca-certificates/caddy-root.crt
 ```
 ```bash
 sudo update-ca-certificates
+```
 ```bash
 
 ### On Mac
