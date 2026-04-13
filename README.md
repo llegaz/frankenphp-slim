@@ -9,14 +9,16 @@ This project is largely inspired from [Kévin Dunglas](https://dunglas.dev)'s pr
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
 2. Run `docker compose build --pull --no-cache` to build fresh images  
   
-**optional**. If you have an existing Slim project you want to run just clone it (copy it) into this same project and rename its folder `src/`, like this:  
+**optional**. If you have an existing Slim project you want to run place it under the folder `src/`, such as this:  
 ```text
     frankenphp-slim/
     ├─ frankenphp/
     ├─ src/
+      ├─ public/
+        ├─ index.php
 ```
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser
+3. Run `docker compose up --wait` to set up
+4. Open `https://localhost` in your favorite web browser to access you app (accept self signed certificate in local / dev mode)
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
 ## Add the authority to the trust store of the host
@@ -40,10 +42,9 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 ## Features
 
 - Production, development and CI ready
-- Just 1 service by default
+- All-in-one Docker container by default
 - Super-readable configuration
-- Unfortunately [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/) is not up in this version but you can set it or check on my next project [frankenphp-slim-enhanced](https://github.com/llegaz/frankenphp-slim-enhanced)
-- [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
+- Unfortunately [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/) is not up in this version but I'll try to make it available with my next project ([frankenphp-slim-enhanced](https://github.com/llegaz/frankenphp-slim-enhanced))
 - Automatic HTTPS (in dev and prod)
 - HTTP/3 ready and HTTP/2 support
 - Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
@@ -106,14 +107,6 @@ APP_SECRET=ChangeMe \
 CADDY_MERCURE_JWT_SECRET=Key \
 docker compose -f compose.yaml -f compose.prod.yaml up --wait
 ```
-
-## Deploying on Multiple Nodes
-
-If you want to deploy your app on a cluster of machines, you can use [Docker Swarm](https://docs.docker.com/engine/swarm/stack-deploy/),
-which is compatible with the provided Compose files.
-To deploy on Kubernetes, take a look
-at [the Helm chart provided with API Platform](https://api-platform.com/docs/deployment/kubernetes/),
-which can be easily adapted for use with Symfony Docker.
 
 ## Passing local environment variables to containers
 
