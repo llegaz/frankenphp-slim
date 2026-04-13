@@ -30,9 +30,10 @@ docker cp <container_name>:/data/caddy/pki/authorities/local/root.crt ./caddy-ro
 ```bash
 sudo cp caddy-root.crt /usr/local/share/ca-certificates/caddy-root.crt
 ```
+
 ```bash
 sudo update-ca-certificates
-```bash
+```
 
 ### On Mac
 ```bash
@@ -64,14 +65,14 @@ Deploy keys are also [supported by GitLab](https://docs.gitlab.com/user/project/
 
 Example with Git:
 
-```console
+```bash
 git clone git@github.com:<username>/<project-name>.git
 ```
 
 Go into the directory containing your project (`<project-name>`),
 and start the app in production mode:
 
-```console
+```bash
 # Build fresh production image
 docker compose -f compose.yaml -f compose.prod.yaml build --pull --no-cache
 
@@ -101,7 +102,7 @@ Go to `https://your-domain-name.example.com` and **enjoy!**
 Alternatively, if you don't want to expose an HTTPS server but only an HTTP one,
 run the following command:
 
-```console
+```bash
 SERVER_NAME=:80 \
 APP_SECRET=ChangeMe \
 CADDY_MERCURE_JWT_SECRET=Key \
